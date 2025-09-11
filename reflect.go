@@ -15,6 +15,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/stoewer/go-strcase"
 )
 
 // customSchemaImpl is used to detect if the type provides it's own
@@ -212,7 +214,7 @@ func (r *Reflector) ReflectFromType(t reflect.Type) *Schema {
 			}
 		}
 		if baseSchemaID != EmptyID {
-			s.ID = baseSchemaID.Add(ToSnakeCase(name))
+			s.ID = baseSchemaID.Add(strcase.KebabCase(name))
 		}
 	}
 
