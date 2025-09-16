@@ -17,8 +17,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var updateFixtures = flag.Bool("update", false, "set to update fixtures")
-var compareFixtures = flag.Bool("compare", false, "output failed fixtures with .out.json")
+var (
+	updateFixtures  = flag.Bool("update", false, "set to update fixtures")
+	compareFixtures = flag.Bool("compare", false, "output failed fixtures with .out.json")
+)
 
 type GrandfatherType struct {
 	FamilyName string `json:"family_name" jsonschema:"required"`
@@ -366,7 +368,7 @@ func TestReflectFromType(t *testing.T) {
 	typ := reflect.TypeOf(tu)
 
 	s := r.ReflectFromType(typ)
-	assert.EqualValues(t, "https://github.com/invopop/jsonschema/test-user", s.ID)
+	assert.EqualValues(t, "https://github.com/exaring/jsonschema/test-user", s.ID)
 
 	x := struct {
 		Test string
@@ -535,12 +537,12 @@ func compareSchemaOutput(t *testing.T, f string, r *Reflector, obj any) {
 	actualJSON, _ := json.MarshalIndent(actualSchema, "", "  ") //nolint:errchkjson
 
 	if *updateFixtures {
-		_ = os.WriteFile(f, actualJSON, 0600)
+		_ = os.WriteFile(f, actualJSON, 0o600)
 	}
 
 	if !assert.JSONEq(t, string(expectedJSON), string(actualJSON)) {
 		if *compareFixtures {
-			_ = os.WriteFile(strings.TrimSuffix(f, ".json")+".out.json", actualJSON, 0600)
+			_ = os.WriteFile(strings.TrimSuffix(f, ".json")+".out.json", actualJSON, 0o600)
 		}
 	}
 }

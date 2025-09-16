@@ -45,11 +45,15 @@ type propertyAliasSchemaImpl interface {
 	JSONSchemaProperty(prop string) any
 }
 
-var customAliasSchema = reflect.TypeOf((*aliasSchemaImpl)(nil)).Elem()
-var customPropertyAliasSchema = reflect.TypeOf((*propertyAliasSchemaImpl)(nil)).Elem()
+var (
+	customAliasSchema         = reflect.TypeOf((*aliasSchemaImpl)(nil)).Elem()
+	customPropertyAliasSchema = reflect.TypeOf((*propertyAliasSchemaImpl)(nil)).Elem()
+)
 
-var customType = reflect.TypeOf((*customSchemaImpl)(nil)).Elem()
-var extendType = reflect.TypeOf((*extendSchemaImpl)(nil)).Elem()
+var (
+	customType = reflect.TypeOf((*customSchemaImpl)(nil)).Elem()
+	extendType = reflect.TypeOf((*extendSchemaImpl)(nil)).Elem()
+)
 
 // customSchemaGetFieldDocString
 type customSchemaGetFieldDocString interface {
@@ -169,11 +173,11 @@ type Reflector struct {
 	//
 	// Type descriptions should be defined like:
 	//
-	//   map[string]string{"github.com/invopop/jsonschema.Reflector": "A Reflector reflects values into a Schema."}
+	//   map[string]string{"github.com/exaring/jsonschema.Reflector": "A Reflector reflects values into a Schema."}
 	//
 	// And Fields defined as:
 	//
-	//   map[string]string{"github.com/invopop/jsonschema.Reflector.DoNotReference": "Do not reference definitions."}
+	//   map[string]string{"github.com/exaring/jsonschema.Reflector.DoNotReference": "Do not reference definitions."}
 	//
 	// See also: AddGoComments, LookupComment
 	CommentMap map[string]string
